@@ -1,0 +1,26 @@
+namespace echo;
+
+enum Type:byte { Undefined, Boolean, String }
+enum Effect:byte { Ping, Pong }
+
+table Attribute {
+  id:string;
+  type:Type;
+  value:string;
+}
+
+table Request {
+  attributes:[Attribute];
+}
+
+table Response {
+  effect:Effect;
+  msg:string;
+  attributes:[Attribute];
+}
+
+root_type Response;
+
+rpc_service echo {
+  Echo(Request):Response (streaming: "bidi");
+}
